@@ -1,5 +1,2 @@
 # nvim
 Neovim configurations
-
-
-Hello
