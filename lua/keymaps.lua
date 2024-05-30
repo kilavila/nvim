@@ -32,3 +32,5 @@ map('n', '<leader>fc', ':lua require(\'telescope.builtin\').command_history()<cr
 map('n', '<leader>fh', ':lua require(\'telescope.builtin\').help_tags()<cr>', { noremap = true, silent = true })
 
 map('n', '<leader>gg', ':LazyGit<cr>', { noremap = true, silent = true })
+map('n', '<C-ESC>', '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
+map('t', '<C-ESC>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
