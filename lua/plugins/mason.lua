@@ -8,8 +8,13 @@ return {
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = {
       ensure_installed = {
+        "bashls",
+        "cssls",
+        "html",
+        "jsonls",
         "lua_ls",
         "taplo",
+        "ts_ls",
         -- add more arguments for adding more language servers
       },
     },
@@ -20,6 +25,7 @@ return {
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
       ensure_installed = {
+        "jsonlint",
         "stylua",
         -- add more arguments for adding more null-ls sources
       },

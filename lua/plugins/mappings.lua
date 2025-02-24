@@ -10,6 +10,7 @@ return {
         n = {
           ["<Leader>h"] = { "<cmd>noh<cr>", desc = "Clear highlight" },
           ["<Leader>b"] = { desc = "Buffers" },
+          ["<Leader>ng"] = { "<cmd>Neogit<cr>", desc = "Open Neogit" },
         },
         t = {
           -- setting a mapping to false will disable it
