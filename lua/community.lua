@@ -6,6 +6,5 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.colorscheme.dracula-nvim" },
-  -- import/override with your plugins folder
+  { import = "astrocommunity.colorscheme" },
 }
