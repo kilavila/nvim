@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -7,6 +5,27 @@ if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 ---@type LazySpec
 return {
+
+  -- customize cmp mappings
+  {
+    "hrsh7th/nvim-cmp",
+    -- override the options table that is used
+    -- in the `require("cmp").setup()` call
+    opts = function(_, opts)
+      -- opts parameter is the default options table
+      -- the function is lazy loaded so cmp is able to be required
+      local cmp = require "cmp"
+      -- make sure there is a `mapping` table in the `opts`
+      if not opts.mapping then opts.mapping = {} end
+      -- modify the mapping part of the table
+      return require("astrocore").extend_tbl(opts, {
+        mapping = {
+          ["<C-l>"] = cmp.mapping.confirm { select = true },
+        },
+      })
+    end,
+  },
+
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
   opts = {

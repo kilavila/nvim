@@ -13,6 +13,7 @@ return {
         "html",
         "jsonls",
         "lua_ls",
+        "tailwindcss",
         "taplo",
         "ts_ls",
         -- add more arguments for adding more language servers
