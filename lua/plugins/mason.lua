@@ -13,6 +13,7 @@ return {
         "html",
         "jsonls",
         "lua_ls",
+        "prismals",
         "tailwindcss",
         "taplo",
         "ts_ls",
