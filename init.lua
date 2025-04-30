@@ -1,51 +1,96 @@
--- INFO:
--- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
--- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
-local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
-  -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
+local map = vim.keymap.set
+local opt = vim.opt
 
--- validate that lazy is available
-if not pcall(require, "lazy") then
-  -- stylua: ignore
-  vim.api.nvim_echo({ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } }, true, {})
-  vim.fn.getchar()
-  vim.cmd.quit()
-end
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-require "lazy_setup"
-require "polish"
+vim.g.termguicolors = true
+vim.g.have_nerd_font = true
 
--- INFO:
--- Define the highlight group
--- Create the autocmd for yank highlight
-vim.api.nvim_command "highlight YankHighlight guibg=#f6c177 guifg=#000000"
+opt.relativenumber = true
+opt.mouse = "a"
+opt.showmode = false
+opt.breakindent = true
+opt.undofile = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.signcolumn = "yes"
+opt.updatetime = 250
+opt.timeoutlen = 300
+opt.splitright = true
+opt.splitbelow = true
+opt.list = false
+opt.inccommand = "split"
+opt.cursorline = true
+opt.scrolloff = 10
+opt.wrap = false
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.hlsearch = true
+
+vim.schedule(function()
+	vim.opt.clipboard = "unnamedplus"
+end)
+
+map("i", "jk", "<esc>")
+
+map("n", "<leader>w", ":w<cr>")
+map("n", "<leader>q", ":q<cr>")
+
+map("n", "<leader>e", ":lua MiniFiles.open()<cr>")
+map("n", "<leader>bb", ":bp<cr>")
+map("n", "<leader>bn", ":bn<cr>")
+map("n", "<leader>c", ":bd<cr>")
+
+map("n", "<leader>h", ":noh<cr>")
+
+map("n", "<leader>g", ":Neogit<cr>")
+
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
-  pattern = "*",
-  callback = function()
-    local ns_id = vim.api.nvim_create_namespace "yank_highlight"
-    local buf = vim.api.nvim_get_current_buf()
-    local marks = vim.fn.getpos "'["
-    local end_marks = vim.fn.getpos "']"
-
-    -- INFO:
-    -- Clear previous highlights
-    -- Highlight the yanked region
-    -- Clear the highlight after 0.25 seconds
-    vim.api.nvim_buf_clear_namespace(buf, ns_id, 0, -1)
-    vim.api.nvim_buf_add_highlight(buf, ns_id, "YankHighlight", marks[2] - 1, marks[3] - 1, end_marks[3])
-    vim.defer_fn(function() vim.api.nvim_buf_clear_namespace(buf, ns_id, 0, -1) end, 250)
-  end,
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
--- INFO:
--- Define a custom highlight group for visual mode
--- Ensure the custom highlight is applied when entering visual mode
-vim.api.nvim_command "highlight Visual guibg=#393552"
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function() vim.api.nvim_set_hl(0, "Visual", { bg = "#393552" }) end,
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		error("Error cloning lazy.nvim:\n" .. out)
+	end
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+
+	{ import = "plugins" },
+}, {
+	ui = {
+		icons = vim.g.have_nerd_font and {} or {
+			cmd = "⌘",
+			config = "🛠",
+			event = "📅",
+			ft = "📂",
+			init = "⚙",
+			keys = "🗝",
+			plugin = "🔌",
+			runtime = "💻",
+			require = "🌙",
+			source = "📄",
+			start = "🚀",
+			task = "📌",
+			lazy = "💤 ",
+		},
+	},
 })
