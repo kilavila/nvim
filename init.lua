@@ -45,7 +45,7 @@ map("n", "<leader>c", ":bd<cr>")
 
 map("n", "<leader>h", ":noh<cr>")
 
-map("n", "<leader>g", ":Neogit<cr>")
+map("n", "<leader>g", ":Neogit kind=floating<cr>")
 
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
