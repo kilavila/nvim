@@ -15,6 +15,9 @@ return {
           ["<Leader>ng"] = { "<cmd>Neogit<cr>", desc = "Open Neogit" },
           ["<leader>U"] = { "<cmd>UndotreeToggle<cr>", desc = "Undotree toggle" },
           ["<leader>T"] = { "<cmd>Twilight<cr>", desc = "Toggle twilight" },
+          ["<leader>lv"] = { "<cmd>lua require('functions').log()<cr>", desc = "Log variable" },
+          ["<leader>s"] = { "<Plug>(easymotion-overwin-f2)", desc = "Easymotion" },
+          -- ["<leader>ln"] = { "<cmd>lua require('functions').note()<cr>", desc = "Create note" },
         },
         t = {
           -- setting a mapping to false will disable it
