@@ -1,6 +1,36 @@
+--[[
+--
+--		 ███    ██ ██    ██ ██ ███    ███
+-- 		 ████   ██ ██    ██ ██ ████  ████
+-- 		 ██ ██  ██ ██    ██ ██ ██ ████ ██
+-- 		 ██  ██ ██  ██  ██  ██ ██  ██  ██
+-- 		 ██   ████   ████   ██ ██ .config
+--				
+--		 To check the current status of your plugins, run
+--		 :Lazy
+--
+--		 To check the current status of installed tools or install tools, run
+--		 :Mason
+--
+--		 To search for keymaps, press
+--		 Space f f
+--
+--		 To search help documentation, press
+--		 Space f h
+--
+--]]
+
+--[[
+-- INFO:
+-- variables
+--]]
 local map = vim.keymap.set
 local opt = vim.opt
 
+--[[
+-- INFO:
+-- options
+--]]
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -33,6 +63,12 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
+--[[
+-- INFO:
+-- mappings
+-- TODO:
+-- create git-conflict mappings
+--]]
 map("i", "jk", "<esc>")
 
 map("n", "<leader>w", ":w<cr>")
@@ -46,12 +82,18 @@ map("n", "<leader>c", ":bd<cr>")
 map("n", "<leader>h", ":noh<cr>")
 
 map("n", "<leader>g", ":Neogit kind=floating<cr>")
+map("n", "<leader>u", ":lua vim.fn.execute({ ':UndotreeToggle', ':UndotreeFocus' })<cr>")
+map("n", "<leader>tc", ":ColorizerToggle<cr>")
 
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+--[[
+-- INFO:
+-- auto commands
+--]]
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
@@ -60,6 +102,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+--[[
+-- INFO:
+-- lazy plugin manager
+--]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -73,7 +119,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-
+	--[[
+	-- INFO:
+	-- plugins
+	--]]
 	{ import = "plugins" },
 }, {
 	ui = {
@@ -94,3 +143,17 @@ require("lazy").setup({
 		},
 	},
 })
+
+--[[
+-- INFO:
+-- floating window fix
+--]]
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+	opts = opts or {}
+	opts.border = opts.border or "rounded"
+
+	return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
