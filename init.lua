@@ -66,8 +66,6 @@ end)
 --[[
 -- INFO:
 -- mappings
--- TODO:
--- create git-conflict mappings
 --]]
 map("i", "jk", "<esc>")
 
@@ -83,7 +81,9 @@ map("n", "<leader>h", ":noh<cr>")
 
 map("n", "<leader>g", ":Neogit kind=floating<cr>")
 map("n", "<leader>u", ":lua vim.fn.execute({ ':UndotreeToggle', ':UndotreeFocus' })<cr>")
+
 map("n", "<leader>tc", ":ColorizerToggle<cr>")
+map("n", "<leader>tt", ":TodoTelescope<cr>")
 
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
