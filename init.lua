@@ -69,6 +69,9 @@ end)
 --]]
 map("i", "jk", "<esc>")
 
+map("n", "|", "<C-w>|")
+map("n", "_", "<C-w>_")
+
 map("n", "<leader>w", ":w<cr>")
 map("n", "<leader>q", ":q<cr>")
 
@@ -85,22 +88,14 @@ map("n", "<leader>u", ":lua vim.fn.execute({ ':UndotreeToggle', ':UndotreeFocus'
 map("n", "<leader>tc", ":ColorizerToggle<cr>")
 map("n", "<leader>tt", ":TodoTelescope<cr>")
 
+map("n", "<leader>*", ":CloakToggle<cr>")
+
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
---[[
--- INFO:
--- auto commands
---]]
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
+map("n", "<leader>lc", ":lua require('fn').log()<cr>")
 
 --[[
 -- INFO:
@@ -144,6 +139,24 @@ require("lazy").setup({
 	},
 })
 
+require("leap").set_default_mappings()
+
+--[[
+-- INFO:
+-- auto commands
+--]]
+--[[
+-- INFO:
+-- yank highlight
+--]]
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
 --[[
 -- INFO:
 -- floating window fix
@@ -157,3 +170,18 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 
 	return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
+--[[
+-- INFO:
+-- remember folds
+--]]
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+	pattern = { "*.*" },
+	desc = "save view (folds), when closing file",
+	command = "mkview",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+	pattern = { "*.*" },
+	desc = "load view (folds), when opening file",
+	command = "silent! loadview",
+})

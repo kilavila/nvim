@@ -43,4 +43,30 @@ return {
 			})
 		end,
 	},
+	{
+		"f-person/git-blame.nvim",
+		event = "VeryLazy",
+		opts = {
+			enabled = true,
+			message_template = "				<author> • <date> • <summary> • [<sha>]",
+			date_format = "%d/%m/%Y",
+		},
+	},
+	{
+		"kdheepak/lazygit.nvim",
+		lazy = true,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
 }
