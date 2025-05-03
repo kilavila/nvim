@@ -1,0 +1,20 @@
+---@meta
+
+--- Get values relevant to current position.
+---
+--- **buffer**
+--- The buffer id the command was invoked in.
+---
+--- **cursor_word**
+--- The word under the cursor when the command was invoked.
+---
+--- **file_type**
+--- The file extension of the current buffer.
+---
+--- **line**
+--- The current line number of the cursor.
+---@class Current
+---@field buffer number
+---@field cursor_word string
+---@field file_type string
+---@field line number

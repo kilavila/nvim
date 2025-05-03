@@ -21,15 +21,13 @@
 --]]
 
 --[[
--- INFO:
--- variables
+-- INFO: variables
 --]]
 local map = vim.keymap.set
 local opt = vim.opt
 
 --[[
--- INFO:
--- options
+-- INFO: options
 --]]
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -61,11 +59,36 @@ opt.hlsearch = true
 
 vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
+
+	--[[
+	-- INFO: colorscheme styles
+	--]]
+	vim.g.neon_style = "doom"
+	vim.g.material_style = "deep ocean"
+	vim.g.edge_style = "neon"
+
+	--[[
+	-- INFO: colorschemes
+	-- horizon
+	-- neon
+	-- material
+	-- doom-one
+	-- dracula
+	-- catppuccin-<style?> |macchiato|mocha|
+	-- rose-pine-<style?> |main|moon|
+	-- one_monokai
+	-- edge
+	--]]
+	vim.cmd([[colorscheme doom-one]])
+
+	--[[
+	-- INFO: default mapping: s/S
+	--]]
+	require("leap").set_default_mappings()
 end)
 
 --[[
--- INFO:
--- mappings
+-- INFO: mappings
 --]]
 map("i", "jk", "<esc>")
 
@@ -95,11 +118,10 @@ map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
-map("n", "<leader>lc", ":lua require('fn').log()<cr>")
+map("n", "<leader>lc", ":lua require('custom').log()<cr>")
 
 --[[
--- INFO:
--- lazy plugin manager
+-- INFO: lazy plugin manager
 --]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -115,8 +137,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	--[[
-	-- INFO:
-	-- plugins
+	-- INFO: plugins
 	--]]
 	{ import = "plugins" },
 }, {
@@ -139,15 +160,8 @@ require("lazy").setup({
 	},
 })
 
-require("leap").set_default_mappings()
-
 --[[
--- INFO:
--- auto commands
---]]
---[[
--- INFO:
--- yank highlight
+-- INFO: yank highlight
 --]]
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -158,8 +172,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 --[[
--- INFO:
--- floating window fix
+-- INFO: floating window fix
 --]]
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 
@@ -172,8 +185,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 --[[
--- INFO:
--- remember folds
+-- INFO: remember folds
 --]]
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
 	pattern = { "*.*" },
