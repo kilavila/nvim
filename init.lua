@@ -67,18 +67,6 @@ vim.schedule(function()
 	vim.g.material_style = "deep ocean"
 	vim.g.edge_style = "neon"
 
-	--[[
-	-- INFO: colorschemes
-	-- horizon
-	-- neon
-	-- material
-	-- doom-one
-	-- dracula
-	-- catppuccin-<style?> |macchiato|mocha|
-	-- rose-pine-<style?> |main|moon|
-	-- one_monokai
-	-- edge
-	--]]
 	vim.cmd([[colorscheme doom-one]])
 
 	--[[
@@ -119,6 +107,10 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 map("n", "<leader>lc", ":lua require('custom').log()<cr>")
+map("n", "<leader>nn", ":NotesNew<cr>")
+map("n", "<leader>ns", ":NotesSave<cr>")
+map("n", "<leader>ne", ":NotesEdit<cr>")
+map("n", "<leader>nd", ":NotesDelete<cr>")
 
 --[[
 -- INFO: lazy plugin manager

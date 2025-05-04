@@ -42,7 +42,7 @@ local _get_buffer = function()
 	return buffer
 end
 
----@type fun():  Current
+---@type fun(): Current
 local _get_current = function()
 	---@type Current
 	local current = {
@@ -59,6 +59,15 @@ M.get_cword = _get_cword
 M.get_file_type = _get_file_type
 M.get_line = _get_line
 M.get_buffer = _get_buffer
+
+--- Get values relevant to current position.
+---
+--- current = {
+---	buffer number
+---	cursor_word string
+---	file_type string
+---	line number
+--- }
 M.get_current = _get_current
 
 return M
