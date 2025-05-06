@@ -52,7 +52,18 @@ return {
 			--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 			--   },
 			-- },
-			-- pickers = {}
+			pickers = {
+				find_files = { theme = "dropdown" },
+				help_tags = { theme = "dropdown" },
+				keymaps = { theme = "dropdown" },
+				builtin = { theme = "dropdown" },
+				grep_string = { theme = "dropdown" },
+				live_grep = { theme = "dropdown" },
+				diagnostics = { theme = "dropdown" },
+				resume = { theme = "dropdown" },
+				oldfiles = { theme = "dropdown" },
+				buffers = { theme = "dropdown" },
+			},
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),

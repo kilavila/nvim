@@ -5,18 +5,6 @@
 -- 		 ██ ██  ██ ██    ██ ██ ██ ████ ██
 -- 		 ██  ██ ██  ██  ██  ██ ██  ██  ██
 -- 		 ██   ████   ████   ██ ██ .config
---				
---		 To check the current status of your plugins, run
---		 :Lazy
---
---		 To check the current status of installed tools or install tools, run
---		 :Mason
---
---		 To search for keymaps, press
---		 Space f f
---
---		 To search help documentation, press
---		 Space f h
 --
 --]]
 
@@ -24,16 +12,20 @@
 -- INFO: variables
 --]]
 local map = vim.keymap.set
+local schedule = vim.schedule
+local api = vim.api
+local cmd = vim.cmd
 local opt = vim.opt
+local g = vim.g
 
 --[[
 -- INFO: options
 --]]
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+g.mapleader = " "
+g.maplocalleader = " "
 
-vim.g.termguicolors = true
-vim.g.have_nerd_font = true
+g.termguicolors = true
+g.have_nerd_font = true
 
 opt.relativenumber = true
 opt.mouse = "a"
@@ -42,7 +34,7 @@ opt.breakindent = true
 opt.undofile = true
 opt.ignorecase = true
 opt.smartcase = true
-opt.signcolumn = "yes"
+opt.signcolumn = "yes:1"
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.splitright = true
@@ -57,17 +49,17 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.hlsearch = true
 
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
+schedule(function()
+	opt.clipboard = "unnamedplus"
 
 	--[[
 	-- INFO: colorscheme styles
 	--]]
-	vim.g.neon_style = "doom"
-	vim.g.material_style = "deep ocean"
-	vim.g.edge_style = "neon"
+	g.neon_style = "doom"
+	g.material_style = "deep ocean"
+	g.edge_style = "neon"
 
-	vim.cmd([[colorscheme doom-one]])
+	cmd([[colorscheme catppuccin-mocha]])
 
 	--[[
 	-- INFO: default mapping: s/S
@@ -90,6 +82,11 @@ map("n", "<leader>e", ":lua MiniFiles.open()<cr>")
 map("n", "<leader>bb", ":bp<cr>")
 map("n", "<leader>bn", ":bn<cr>")
 map("n", "<leader>c", ":bd<cr>")
+map("n", "<leader>bo", ":BufferListOpen<cr>")
+map("n", "<leader>bq", ":QuickNavOpen<cr>")
+map("n", "<leader>ba", ":QuickNavAdd<cr>")
+map("n", "<C-t>", ":QuickNavPrev<cr>")
+map("n", "<C-n>", ":QuickNavNext<cr>")
 
 map("n", "<leader>h", ":noh<cr>")
 
@@ -125,7 +122,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end
 
-vim.opt.rtp:prepend(lazypath)
+opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	--[[
@@ -155,7 +152,7 @@ require("lazy").setup({
 --[[
 -- INFO: yank highlight
 --]]
-vim.api.nvim_create_autocmd("TextYankPost", {
+api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
@@ -179,12 +176,12 @@ end
 --[[
 -- INFO: remember folds
 --]]
-vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+api.nvim_create_autocmd({ "BufWinLeave" }, {
 	pattern = { "*.*" },
 	desc = "save view (folds), when closing file",
 	command = "mkview",
 })
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+api.nvim_create_autocmd({ "BufWinEnter" }, {
 	pattern = { "*.*" },
 	desc = "load view (folds), when opening file",
 	command = "silent! loadview",

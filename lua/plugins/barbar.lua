@@ -8,6 +8,7 @@ return {
 		vim.g.barbar_auto_setup = false
 	end,
 	opts = {
+		insert_at_end = true,
 		icons = {
 			button = "",
 			preset = "default",
