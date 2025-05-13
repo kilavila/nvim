@@ -2,7 +2,7 @@ return {
 	"tpope/vim-sleuth",
 	"mbbill/undotree",
 	"norcalli/nvim-colorizer.lua",
-	"ggandor/leap.nvim",
+	"easymotion/vim-easymotion",
 	"psliwka/termcolors.nvim",
 	"kilavila/nvim-bufferlist",
 	"kilavila/nvim-gitignore",

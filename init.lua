@@ -27,6 +27,7 @@ g.maplocalleader = " "
 g.termguicolors = true
 g.have_nerd_font = true
 
+opt.number = true
 opt.relativenumber = true
 opt.mouse = "a"
 opt.showmode = false
@@ -62,9 +63,9 @@ schedule(function()
 	cmd([[colorscheme catppuccin-mocha]])
 
 	--[[
-	-- INFO: default mapping: s/S
+	-- INFO: easymotion config
 	--]]
-	require("leap").set_default_mappings()
+	g.EasyMotion_do_mapping = 0
 end)
 
 --[[
@@ -74,6 +75,7 @@ map("i", "jk", "<esc>")
 
 map("n", "|", "<C-w>|")
 map("n", "_", "<C-w>_")
+map("n", "s", "<Plug>(easymotion-overwin-f2)")
 
 map("n", "<leader>w", ":w<cr>")
 map("n", "<leader>q", ":q<cr>")
@@ -93,6 +95,7 @@ map("n", "<leader>h", ":noh<cr>")
 map("n", "<leader>g", ":Neogit kind=floating<cr>")
 map("n", "<leader>u", ":lua vim.fn.execute({ ':UndotreeToggle', ':UndotreeFocus' })<cr>")
 
+map("n", "<leader>mt", ":RenderMarkdown toggle<cr>")
 map("n", "<leader>tc", ":ColorizerToggle<cr>")
 map("n", "<leader>tt", ":TodoTelescope<cr>")
 
