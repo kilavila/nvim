@@ -51,7 +51,8 @@ schedule(function()
 	g.material_style = "deep ocean"
 	g.edge_style = "neon"
 
-	cmd([[colorscheme catppuccin-mocha]])
+	-- cmd([[colorscheme catppuccin-mocha]])
+	cmd([[colorscheme horizon]])
 	cmd([[CccHighlighterEnable]])
 	cmd([[set guicursor=n-v-c-i:block]])
 	cmd([[CloakEnable]])
@@ -66,12 +67,18 @@ map("n", "|", "<C-w>|")
 map("n", "_", "<C-w>_")
 map("n", "s", "<Plug>(easymotion-overwin-f2)")
 
+map("n", "<leader>X", "<cmd>source %<cr>")
+map("n", "<leader>x", "<cmd>.lua<cr>")
+map("v", "<leader>x", ":lua<cr>")
+
 map("n", "<leader>w", "<cmd>w<cr>")
 map("n", "<leader>q", "<cmd>q<cr>")
 
 map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>")
 map("n", "<C-p>", "<cmd>bp<cr>")
 map("n", "<C-n>", "<cmd>bn<cr>")
+map("n", "<leader>bn", "<cmd>bn<cr>")
+map("n", "<leader>bb", "<cmd>bp<cr>")
 map("n", "<leader>c", "<cmd>lua MiniBufremove.wipeout()<cr>")
 map("n", "<leader>bo", "<cmd>BufferListOpen<cr>")
 map("n", "<leader>bq", "<cmd>QuickNavOpen<cr>")
@@ -88,6 +95,7 @@ map("n", "<leader>mt", "<cmd>RenderMarkdown toggle<cr>")
 map("n", "<leader>tc", "<cmd>CccPick<cr>")
 map("n", "<leader>te", "<cmd>CccHighlighterToggle<cr>")
 map("n", "<leader>tt", "<cmd>TodoTelescope<cr>")
+map("n", "<leader>tk", "<cmd>ShowkeysToggle<cr>")
 
 map("n", "<leader>*", "<cmd>CloakToggle<cr>")
 
@@ -97,10 +105,10 @@ map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 map("n", "<leader>lc", "<cmd>lua require('custom').log()<cr>")
-map("n", "<leader>nn", "<cmd>NotesNew<cr>")
-map("n", "<leader>ns", "<cmd>NotesSave<cr>")
-map("n", "<leader>ne", "<cmd>NotesEdit<cr>")
-map("n", "<leader>nd", "<cmd>NotesDelete<cr>")
+-- map("n", "<leader>nn", "<cmd>NotesNew<cr>")
+-- map("n", "<leader>ns", "<cmd>NotesSave<cr>")
+-- map("n", "<leader>ne", "<cmd>NotesEdit<cr>")
+-- map("n", "<leader>nd", "<cmd>NotesDelete<cr>")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
