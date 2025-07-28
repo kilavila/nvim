@@ -1,8 +1,6 @@
 local g = vim.g
 local opt = vim.opt
 
-local api = vim.api
-
 g.mapleader = " "
 g.maplocalleader = " "
 

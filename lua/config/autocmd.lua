@@ -1,8 +1,31 @@
+local api = vim.api
+
+local highlight = {
+	background = "#f6c177",
+	foreground = "#000000",
+}
+
+local cursor = {
+	background = "#e0def4",
+	foreground = "#000000",
+}
+
+api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		api.nvim_set_hl(0, "Visual", { bg = highlight.background, fg = highlight.foreground })
+		api.nvim_set_hl(0, "YankHighlight", { bg = highlight.background, fg = highlight.foreground })
+
+		vim.api.nvim_set_hl(0, "Cursor", { bg = cursor.background, fg = cursor.foreground })
+		vim.o.guicursor = "n-v-c:block-Cursor,i-ci-ve:block-Cursor,r-cr-o:block-Cursor,a:block-Cursor"
+	end,
+})
+
+-- Create the autocmd using your custom highlight group
 api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	group = api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function()
-		vim.highlight.on_yank()
+		vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 150 })
 	end,
 })
 
