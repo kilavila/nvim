@@ -1,7 +1,9 @@
 local map = vim.keymap.set
 
+--[[ INSERT MODE ]]
 map("i", "jk", "<esc>")
 
+--[[ NORMAL MODE ]]
 map("n", "<leader>X", "<cmd>source %<cr>")
 map("n", "<leader>x", "<cmd>.lua<cr>")
 map("v", "<leader>x", ":lua<cr>")
@@ -20,9 +22,7 @@ map("n", "<C-l>", "<C-w><C-l>")
 map("n", "<C-j>", "<C-w><C-j>")
 map("n", "<C-k>", "<C-w><C-k>")
 
---[[
-	PLUGINS
-]]
+--[[ PLUGINS ]]
 map("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>")
 map("n", "<leader>u", "<cmd>UndotreeToggle<cr>")
 map("n", "<leader>*", "<cmd>CloakToggle<cr>")
