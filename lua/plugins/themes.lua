@@ -1,5 +1,6 @@
 return {
 	{ "akinsho/horizon.nvim", version = "*" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
