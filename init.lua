@@ -1,5 +1,5 @@
 require("config.options")
 require("config.functions")
 require("config.mappings")
-require("lazy-nvim")
 require("config.autocmd")
+require("config.lsp")

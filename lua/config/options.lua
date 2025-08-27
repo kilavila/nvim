@@ -30,4 +30,4 @@ opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.hlsearch = true
 
-vim.o.winborder = "rounded"
+opt.winborder = "rounded"
