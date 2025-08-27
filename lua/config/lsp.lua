@@ -5,6 +5,7 @@ local lsp = vim.lsp
 local opt = vim.opt
 
 lsp.enable("lua_ls")
+lsp.enable("ts_ls")
 
 api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)

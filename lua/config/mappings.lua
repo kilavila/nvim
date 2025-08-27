@@ -34,4 +34,4 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv")
 map("v", "<A-k>", ":m '<-2<cr>gv=gv")
 
 --[[ LSP ]]
--- add formatting document
+map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>")
