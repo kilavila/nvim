@@ -68,23 +68,12 @@ vim.pack.add({
 	'https://github.com/laytan/cloak.nvim',
 	'https://github.com/nvim-lua/plenary.nvim',
 	'https://github.com/mbbill/undotree',
+	'https://github.com/lewis6991/gitsigns.nvim',
+	'https://github.com/akinsho/horizon.nvim',
 
 	{
 		src  = 'https://github.com/catppuccin/nvim',
 		name = 'catppuccin',
-	},
-
-	{
-		src = 'https://github.com/lewis6991/gitsigns.nvim',
-		opts = {
-			signs = {
-				add          = { text = '+' },
-				change       = { text = '~' },
-				delete       = { text = '_' },
-				topdelete    = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-		},
 	},
 
 	{
@@ -112,6 +101,7 @@ vim.pack.add({
 })
 
 vim.cmd.colorscheme('catppuccin')
+-- vim.cmd.colorscheme('horizon')
 
 require('mini.ai').setup()
 require('mini.align').setup()
