@@ -50,6 +50,11 @@ vim.keymap.set('n', '<leader>u',  '<cmd>UndotreeToggle<cr>')
 vim.keymap.set('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>')
 
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
 
 
 --[[ PLUGINS ]]
@@ -70,6 +75,7 @@ vim.pack.add({
 	'https://github.com/mbbill/undotree',
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/akinsho/horizon.nvim',
+	'https://github.com/nvim-lua/plenary.nvim',
 
 	{
 		src  = 'https://github.com/catppuccin/nvim',
@@ -98,6 +104,18 @@ vim.pack.add({
 		},
 	},
 
+	{
+		src = 'nvim-telescope/telescope.nvim',
+		version = '*',
+		dependencies = {
+			'https://github.com/nvim-lua/plenary.nvim',
+			{
+				'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
+				build = 'make',
+			},
+		}
+	}
+
 })
 
 vim.cmd.colorscheme('catppuccin')
@@ -106,17 +124,41 @@ vim.cmd.colorscheme('catppuccin')
 require('mini.ai').setup()
 require('mini.align').setup()
 require('mini.basics').setup()
-require('mini.completion').setup()
 require('mini.files').setup()
 require('mini.move').setup()
 require('mini.pairs').setup()
 require('mini.snippets').setup()
-require('mini.statusline').setup()
 require('mini.surround').setup()
 require('mini.tabline').setup()
+require('mini.icons').setup()
+
+require('mini.completion').setup({
+	window = {
+    info = { height = 25, width = 80, border = 'rounded' },
+    signature = { height = 25, width = 80, border = 'rounded' },
+  },
+})
+
+require('mini.statusline').setup()
+local statusline = require 'mini.statusline'
+statusline.setup { use_icons = vim.g.have_nerd_font }
+statusline.section_location = function() return '%2l:%-2v' end
 
 require('cloak').setup()
 require('todo-comments').setup()
+
+require('telescope').setup()
+local builtin = require 'telescope.builtin'
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = '[S]earch [C]ommands' })
+vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
 
 
